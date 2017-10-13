@@ -1,4 +1,4 @@
-import { Map } from 'immutable'
+import { Map, fromJS } from 'immutable'
 import { reducer as MetaReducer } from 'mk-meta-engine'
 import config from './config'
 import { getInitState } from './data'
@@ -14,10 +14,11 @@ class reducer {
         return this.metaReducer.init(state, initState)
     }
 
-    modifyContent = (state) => {
-        const content = this.metaReducer.gf(state, 'data.content')
-        return this.metaReducer.sf(state, 'data.content', content + '!')
-    }
+    load = (state, response) => {
+		state = this.metaReducer.sf(state, 'data.chart.details6.xAxisData', fromJS(response.details6.xAxisData))
+		state = this.metaReducer.sf(state, 'data.chart.details6.seriesData', fromJS(response.details6.seriesData))
+		return state
+	}
 }
 
 export default function creator(option) {

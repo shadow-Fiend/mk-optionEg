@@ -47,56 +47,56 @@ function config(options) {
 			},*/ {
 				key: '1',
 				name: '会话',
-				appName: 'mk-app-dialogue',
+				appName: 'dialogue',
 				isDefault: true
 			}, {
 				key: '2',
 				name: '待接入',
-				appName: 'mk-app-toAccess',
+				appName: 'toAccess',
 				isDefault: false
 			}, {
 				key: '3',
 				name: '留言',
-				appName: 'mk-app-leaveMessage',
+				appName: 'leaveMessage',
 				isDefault: false
 			}, {
 				key: '4',
 				name: '历史会话',
-				appName: 'mk-app-sessionHistory',
+				appName: 'sessionHistory',
 				isDefault: false
 			}, {
 				key: '5',
 				name: '搜索',
-				appName: 'mk-app-search',
+				appName: 'search',
 				isDefault: false
 			}, {
 				key: '6',
 				name: '导出管理',
-				appName: 'mk-app-exportManager',
+				appName: 'exportManager',
 				isDefault: false
 			}, {
 				key: '7',
 				name: '个人设置',
-				appName: 'mk-app-setting',
+				appName: 'setting',
 				isExpand: false,
 				children: [{
 					key: '701',
 					name: '客服信息',
-					appName: 'mk-app-setting-csim'
+					appName: 'csim'
 				}, {
 					key: '702',
 					name: '个人常用语',
-					appName: 'mk-app-setting-personalExpression'
+					appName: 'personalExpression'
 				}]
 			}, {
 				key: '8',
 				name: '消息中心',
-				appName: 'mk-app-messageCenter',
+				appName: 'messageCenter',
 				isDefault: false
 			}, {
 				key: '9',
 				name: '统计数据',
-				appName: 'mk-app-statisticalData',
+				appName: 'statisticalData',
 				isDefault: false
 			}/*, {
 				key: '2',

@@ -7,8 +7,8 @@
 import { fetch } from 'mk-utils'
 
 export default {
-    /*
-    person: {
-        query: (option) => fetch.post('/v1/person/query', option)
-    }*/
+    
+    statisticalData: {
+        query: (option) => fetch.post('/v1/statisticalData/query', option)
+    }
 }
