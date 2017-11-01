@@ -1,4 +1,4 @@
-import { Map } from 'immutable'
+import { Map, fromJS } from 'immutable'
 import { reducer as MetaReducer } from 'mk-meta-engine'
 import config from './config'
 import { getInitState } from './data'
@@ -14,10 +14,16 @@ class reducer {
         return this.metaReducer.init(state, initState)
     }
 
-    modifyContent = (state) => {
-        const content = this.metaReducer.gf(state, 'data.content')
-        return this.metaReducer.sf(state, 'data.content', content + '!')
+    load = (state, {products, pagination}) => {
+        state = this.metaReducer.sf(state, 'data.pagination', fromJS(pagination))
+        return this.metaReducer.sf(state, 'data.products', fromJS(products))
     }
+    
+    changeSearch = (state, key, value) => {
+        state = this.metaReducer.sf(state, 'data.' + key, value)
+        return state
+    }
+
 }
 
 export default function creator(option) {

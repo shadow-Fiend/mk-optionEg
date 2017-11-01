@@ -7,8 +7,7 @@
 import { fetch } from 'mk-utils'
 
 export default {
-    /*
-    person: {
-        query: (option) => fetch.post('/v1/person/query', option)
-    }*/
+    product: {
+        query: (option) => fetch.post('/v1/product/query', option)
+    }
 }
