@@ -2,10 +2,11 @@ export function getMeta() {
 	return {
 		name: 'root',
 		component: 'Layout',
-		className: 'mk-app-product-list',
+		className: '{{!data.products.length ? "mk-app-product-list mk-app-product-list-noData" : "mk-app-product-list"}}',
 		children: [{
             name: 'search',
             component: '::div',
+            className: 'mk-app-product-list-search',
             children: [{
                 name: 'searchKey',
                 component: 'Input.Search',
@@ -80,6 +81,7 @@ export function getMeta() {
 			name: 'footer',
 			className: 'mk-app-product-list-footer',
 			component: 'Layout',
+            _visible: '{{!data.products.length ? false : true}}',
 			children: [{
 				name: 'pagination',
 				component: 'Pagination',
