@@ -39,7 +39,7 @@ class action {
                 let pagination = this.metaAction.gf('data.pagination').toJS()
                 this.load(pagination)
             }else {
-                this.metaAction.toast('error', '该功能正在开发，敬请期待')
+                this.metaAction.toast('error', '该接口功能正在开发，敬请期待')
                 return
             }
         }
