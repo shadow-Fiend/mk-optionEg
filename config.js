@@ -10,6 +10,9 @@ fetch.config({
 
 	//fetch支持切面扩展（before,after），对restful api统一做返回值或者异常处理
 	after: (response, url) => {
+        if(/_search/.test(url)){
+            return response
+        }
 		if (response.result) {
 			if(response.token){ //登录后设置accessToken,根据需要调整
 				fetch.config({token:response.token})
@@ -68,7 +71,16 @@ function config(options) {
 				key: '5',
 				name: '搜索',
 				appName: 'search',
-				isDefault: false
+				isExpand: false,
+				children: [{
+					key: '501',
+					name: '搜索数据',
+					appName: 'search'
+				}, {
+					key: '502',
+					name: '业务类型搜索实例',
+					appName: 'bussinessSearch'
+				}]
 			}, {
 				key: '6',
 				name: '导出管理',
@@ -112,7 +124,7 @@ function config(options) {
 	})
 
 	_options.targetDomId = 'app' //react render到目标dom
-	_options.startAppName = 'mk-app-root' //启动app名，需要根据实际情况配置
+	_options.startAppName = 'search'// 'mk-app-root' //启动app名，需要根据实际情况配置
 
 	_options.toast = Toast //轻提示使用组件，mk-meta-engine使用
 	_options.notification = Notification //通知组件

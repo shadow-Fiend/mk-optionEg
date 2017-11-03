@@ -17,8 +17,12 @@ class action {
 //        this.load(pagination)
     }
 
-    load = async (pagination) =>{
-        const response = await this.webapi.product.query({ pagination})
+    load = async (ret) =>{
+        const response = await this.webapi.search.query(ret)
+        if(!response.hits.hits.length) {
+            this.metaAction.toast('error', '暂无结果')
+            return
+        }
         this.injections.reduce('load', response)
     }
     
@@ -35,25 +39,32 @@ class action {
         } 
         
         if(key == 'searchKey') {
-            if(e == '人人' || e == 'renren') {
-                let pagination = this.metaAction.gf('data.pagination').toJS()
-                this.load(pagination)
-            }else {
-                this.metaAction.toast('error', '该接口功能正在开发，敬请期待')
-                return
+            let pagination = this.metaAction.gf('data.pagination').toJS(),
+            ret = {
+                query: {match: {
+                    content: e
+                }},
+                highlight: {
+                    pre_tags: ['<b>'],
+                    post_tags: ['</b>'],
+                    fields: {
+                        content: {}
+                    }
+                }
             }
+            this.load(ret)
         }
     }
 
     pageChanged = (current, pageSize) => {
-        this.load({ current, pageSize })
+//        this.load({ current, pageSize })
     }
 
     getLayout = () => {
-        const products = this.metaAction.gf('data.products')
-        if(!products || products.size == 0) return
+        const hits = this.metaAction.gf('data.hits')
+        if(!hits || hits.size == 0) return
                 
-        return products.map((o, index)=>this.getSingleLayout(index, o.get('id'))).toJS()
+        return hits.map((o, index)=>this.getSingleLayout(index, o.get('id'))).toJS()
     }
 
     getSingleLayout = (index, id) =>{

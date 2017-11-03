@@ -82,7 +82,8 @@ module.exports = {
     devServer: {
         contentBase: './dist/',
         proxy: {
-            '/v1/*': 'http://127.0.0.1:8000/'
+            '/_search/*': 'http://192.168.1.13:9200/',
+//            '/v1/*': 'http://192.168.1.13:9200/'
         }
     },
     plugins: plugins

@@ -14,9 +14,23 @@ class reducer {
         return this.metaReducer.init(state, initState)
     }
 
-    load = (state, {products, pagination}) => {
+    load = (state, {hits, _shards}) => {
+        let allInfo = [],
+            pagination = {
+                current: 1,
+                total: hits.hits.length,
+                pagiSize: 8
+            }
+        hits.hits.map(o => {
+            allInfo.push({
+                __html: o.highlight.content
+            })
+        })
+        
+        state = this.metaReducer.sf(state, 'data.hits', fromJS(hits.hits))
+        state = this.metaReducer.sf(state, 'data.allInfo', fromJS(allInfo))
         state = this.metaReducer.sf(state, 'data.pagination', fromJS(pagination))
-        return this.metaReducer.sf(state, 'data.products', fromJS(products))
+        return state
     }
     
     changeSearch = (state, key, value) => {

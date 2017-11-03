@@ -9,49 +9,60 @@ const mockData = fetch.mockData
 
 
 function initMockData() {
-    if (!mockData.products) {
-        mockData.products = []
-        for (let i = 0; i < 117; i++) {
-            mockData.products.push({
+    if (!mockData.hits) {
+        mockData.hits = []
+        for (let i = 0; i < 10; i++) {
+            mockData.hits.push({
                 id: i,
-                img,
-                renrenSrc: 'https://www.rrtimes.com/',
-                title: '人人时代' + (i + 1),
-                price: 100.50 + i * 20,
-                details: '易嘉是为小微企业量身定制的业财税智能服务平台。产品传承财税专家智囊团的集体智慧,融合最新税收法规政策。将复杂的财务税务化繁为简,非专业人士也能轻松驾驭。' + (i + 1)
+                _source: {
+                    img: img,
+                    title: 'monkey-king' + (i + 1),
+                    subtitle: 'mk' + (i + 1),
+                    date: '2017-06-01',
+                    source: 'mk框架',
+                    publicyType: '基于react,redux,immutable探索',
+                    publisher: 'ziaochina',
+                    url: 'https://github.com/ziaochina/reactMonkey'
+                },
+                highlight: {
+                    content: 'mk-js简介 mk = Monkey King = 齐天大圣  mk系列是一套完整的前、后台解决方案 欢迎satr 特点: 将网站分成多个独立app，每个app开发模式完全一致，并且可以克隆npmjs发布模板app将后台服务分成多个独立service, 每个servie开发模式完全一致， 并且可以克隆npmjs发布的模板service开发者自己做的app，service可以发布到npmjs开源给其他开发者使用，成为一个生态化的框架。 代表作: 易嘉财税'
+                }
             })
         }
     }
 }
 
 
-fetch.mock('/v1/product/query', (option) => {
+fetch.mock('/_search', (option) => {
     initMockData()
 
-    const { pagination } = option
+//    const { pagination } = option
 
-    var data = mockData.products
-
-    var current = pagination.current
-    var pageSize = pagination.pageSize
+    var data = mockData.hits
+/*
+    var current = 1 // pagination.current
+    var pageSize = 8 // pagination.pageSize
     var start = (current - 1) * pageSize
     var end = current * pageSize
 
     start = start > data.length - 1 ? 0 : start
     end = start > data.length - 1 ? pageSize : end
     current = start > data.length - 1 ? 1 : current
-
+*/
     var ret = {
-        result: true,
+       /* result: true,
         value: {
             pagination: { current, pageSize, total: data.length },
             products: []
+        }*/
+        hits: {
+            hits: []
         }
     }
 
-    for (let j = start; j < end; j++) {
+    for (let j = 0 /*start*/; j < data.length; j++) {
         if (data[j])
-            ret.value.products.push(data[j])
+            ret.hits.hits.push(data[j])
     }
 
     return ret
