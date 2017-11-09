@@ -9,6 +9,7 @@ import './apps/portal/exportManager/mock.js';
 import './apps/portal/mock.js';
 import './apps/portal/leaveMessage/mock.js';
 import './apps/portal/messageCenter/mock.js';
+import './apps/portal/search/bussinessSearch/busSearchSet/mock.js';
 import './apps/portal/search/bussinessSearch/mock.js';
 import './apps/portal/search/mock.js';
 import './apps/portal/sessionHistory/mock.js';

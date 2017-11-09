@@ -82,8 +82,8 @@ module.exports = {
     devServer: {
         contentBase: './dist/',
         proxy: {
-            '/_search/*': 'http://192.168.1.13:9200/',
-//            '/v1/*': 'http://192.168.1.13:9200/'
+//            '/_search/*': 'http://192.168.1.13:9200/',
+            '/v1/*': 'http://debug.rrtimes.com:8088/'
         }
     },
     plugins: plugins

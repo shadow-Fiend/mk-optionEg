@@ -1,18 +1,18 @@
 export function getMeta() {
 	return {
-		name: 'bussinessSearch',
+		name: 'root',
 		component: '::div',
-        className: 'bussinessSearch',
+        className: 'mk-bussinessSearch',
 		children: [{
 			name: 'option',
 			component: '::div',
-            className: 'bussinessSearch-option',
+            className: 'mk-bussinessSearch-option',
 			children: [{
                 name: 'search',
                 component: 'Input',
                 placeholder: '请输入关键字搜索',
-//                value: '',
-                
+                value: '{{data.search}}',
+                onChange: '{{$handleSearch("search")}}'
             }, {
                 name: 'fresh',
                 component: 'Icon',
@@ -21,68 +21,41 @@ export function getMeta() {
                     fontSize: 18
                 },
                 title: '刷新',
-//                onClick: '{{$handleFresh}}'
+                onClick: '{{$handleFresh("fresh")}}'
             }, {
                 name: 'refresh',
                 component: 'Button',
                 type: 'softly',
                 children: '全部重新生成',
-//                onClick: '{{$handleRefresh}}'
+                onClick: '{{$handleRefresh}}'
             }]
 		}, {
 			name: 'content',
 			component: 'Layout',
-            className: 'mk-app-person-list-content',
+            className: 'mk-bussinessSearch-content',
 			children: [{
                 name: 'dataGrid',
                 component: 'DataGrid',
                 headerHeight: 35,
                 rowHeight: 35,
                 enableSequence: true,
-                startSequence: '{{(data.pagination.current - 1)*data.pagination.pageSize + 1}}',
+//                startSequence: '{{(data.pagination.current - 1)*data.pagination.pageSize + 1}}',
                 rowsCount: '{{$getListRowsCount()}}',
-                columns: [/*{
-                    name: 'select',
-                    component: 'DataGrid.Column',
-                    columnKey: 'select',
-                    width: 40,
-                    fixed: true,
-                    header: {
-                        name: 'header',
-                        component: 'DataGrid.Cell',
-                        children: {
-                            name: 'cb',
-                            component: 'Checkbox',
-//                            checked: '{{$isSelectAll()}}',
-//                            onChange: '{{$selectAll}}'
-                        }
-                    },
-                    cell: {
-                        name: 'cell',
-                        component: 'DataGrid.Cell',
-//                        _power: '({rowIndex})=>rowIndex',
-                        children: {
-                            name: 'checkbox',
-                            component: 'Checkbox',
-//                            checked: '{{data.list[_rowIndex].selected}}',
-//                            onChange: "{{ (e, option) => $setField('data.list.' + _rowIndex + '.selected', e.target.checked ) }}",
-                        }
-                    }
-                }, {
+                columns: [{
                     name: 'oprate',
                     component: 'DataGrid.Column',
                     columnKey: 'oprate',
                     fixed: true,
-                    width: 30,
+                    width: 80,
                     header: {
                         name: 'header',
                         component: 'DataGrid.Cell',
-                        children: ''
+                        children: '操作'
                     },
                     cell: {
                         name: 'cell',
                         component: 'DataGrid.Cell',
-//                        _power: '({rowIndex})=>rowIndex',
+                        _power: '({rowIndex})=>rowIndex',
                         children: [{
                             name: 'edit',
                             component: 'Icon',
@@ -91,14 +64,14 @@ export function getMeta() {
                             style: {
                                 fontSize: 18
                             },
-                            title: 'edit',
-//                            onClick: '{{$editRow}}'
+                            title: '编辑',
+                            onClick: '{{$editRow}}'
                         }]
                     }
                 }, {
                     name: 'busCode',
                     component: 'DataGrid.Column',
-                    columnKey: 'busCode',
+                    columnKey: 'bussinessCode',
                     width: 100,
                     header: {
                         name: 'header',
@@ -108,8 +81,9 @@ export function getMeta() {
                     cell: {
                         name: 'cell',
                         component: 'DataGrid.Cell',
-//                        _power: '{{rowIndex}} => rowIndex',
-//                        children: '{{data.list[_rowIndex].busCode}}'
+                        children: '{{data.list[_rowIndex] && data.list[_rowIndex].businessCode}}',
+                        _power: '({rowIndex}) => rowIndex',
+                            
                     }
                 }, {
                     name: 'busName',
@@ -124,8 +98,8 @@ export function getMeta() {
                     cell: {
                         name: 'cell',
                         component: 'DataGrid.Cell',
-//                        _power: '{{rowIndex}} => rowIndex',
-//                        children: '{{data.list[_rowIndex].busName}}'
+                        _power: '({rowIndex}) => rowIndex',
+                        children: '{{data.list[_rowIndex] && data.list[_rowIndex].name}}'
                     }
                 }, {
                     name: 'busKey',
@@ -135,13 +109,13 @@ export function getMeta() {
                     header: {
                         name: 'header',
                         component: 'DataGrid.Cell',
-                        children: '业务名称'
+                        children: '关键字'
                     },
                     cell: {
                         name: 'cell',
                         component: 'DataGrid.Cell',
-//                        _power: '{{rowIndex}} => rowIndex',
-//                        children: '{{data.list[_rowIndex].busKey}}'
+                        _power: '({rowIndex}) => rowIndex',
+                        children: '{{data.list[_rowIndex] && data.list[_rowIndex].keys.join("/")}}'
                     }
                 }, {
                     name: 'busExtKey',
@@ -151,20 +125,21 @@ export function getMeta() {
                     header: {
                         name: 'header',
                         component: 'DataGrid.Cell',
-                        children: '业务名称'
+                        children: '推荐关键字'
                     },
                     cell: {
                         name: 'cell',
                         component: 'DataGrid.Cell',
-//                        _power: '{{rowIndex}} => rowIndex',
-//                        children: '{{data.list[_rowIndex].busExtKey}}'
+                        _power: '({rowIndex}) => rowIndex',
+                        children: '{{data.list[_rowIndex] && data.list[_rowIndex].extKeys.join("/")}}'
                     }
-                }*/]
+                }] 
             }]
 		}, {
             name: 'footer',
-            className: 'mk-app-person-list-footer',
+            className: 'mk-bussinessSearch-footer',
             component: 'Layout',
+            _visible: false,
             children: [{
                 name: 'pagination',
                 component: 'Pagination',

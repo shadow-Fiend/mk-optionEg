@@ -12,6 +12,7 @@ import exportManager from './apps/portal/exportManager/index.js'
 import mk_app_portal from './apps/portal/index.js'
 import leaveMessage from './apps/portal/leaveMessage/index.js'
 import messageCenter from './apps/portal/messageCenter/index.js'
+import busSearchSet from './apps/portal/search/bussinessSearch/busSearchSet/index.js'
 import bussinessSearch from './apps/portal/search/bussinessSearch/index.js'
 import search from './apps/portal/search/index.js'
 import sessionHistory from './apps/portal/sessionHistory/index.js'
@@ -36,6 +37,7 @@ const apps = {
 	[mk_app_portal.name]: mk_app_portal,	
 	[leaveMessage.name]: leaveMessage,	
 	[messageCenter.name]: messageCenter,	
+	[busSearchSet.name]: busSearchSet,	
 	[bussinessSearch.name]: bussinessSearch,	
 	[search.name]: search,	
 	[sessionHistory.name]: sessionHistory,	

@@ -8,7 +8,11 @@ import { fetch } from 'mk-utils'
 
 export default {
     
-    getAllManualKeys: {
-        query: (option) => fetch.post('/v1/search/manualKey/getAllManualKeys', option)
+    search: {
+        query: () => fetch.post('/v1/search/manualKey/getAllManualKeys', {}),
+        searchBussiness: (key) => fetch.post('/v1/search/searchBusiness', {key}),
+        update: (option) => fetch.post('/v1/search/manualKey/update', option),
+        refresh: (option) => fetch.post('/v1/search/manualKey/refresh', option),
+        clearExtKeys: (option) => fetch.post('/v1/search/manualKey/clearExtKeys', option),
     }
-}
+} 

@@ -8,27 +8,27 @@ import { fetch } from 'mk-utils'
 const mockData = fetch.mockData
 
 function initBussinessType() {
-    if(!mockData.value) {
+//    if(!mockData.value) {
         mockData.value = []
         for (let i = 0; i < 200; i++) {
             mockData.value.push({
-                bussinessCode: 10000 + i,
+                businessCode: 10000 + i,
                 extKeys: ['买' + i, '卖' + i],
                 keys: ['收入' + i, '支出' + i],
                 name: '业务分类' + i,
                 id: i
             })
         }
-    }
+//    }
 }
 
 fetch.mock('/v1/search/manualKey/getAllManualKeys', (option) => {
     initBussinessType()
     
-    const {pagination, filter} = option
+//    const {pagination, filter} = option
     
     var data = mockData.value
-    if(filter) {
+ /*    if(filter) {
         
     }
     
@@ -40,16 +40,16 @@ fetch.mock('/v1/search/manualKey/getAllManualKeys', (option) => {
     start = start > data.length - 1 ? 0 : start
     end = start > data.length - 1 ? pageSize : end
     current = start > data.length - 1 ? 1 : current
-    
+   */ 
     var ret = {
         result: true,
         value: {
-            pagination: {current, pageSize, total: data.length},
+//            pagination: {current, pageSize, total: data.length},
             list: []
         }
     }
     
-    for (let j = start; j < end; j++) {
+    for (let j = 0; j < data.length; j++) {
         if(data[j]) 
             ret.value.list.push(data[j])
     }
@@ -62,3 +62,66 @@ fetch.mock('/v1/search/manualKey/getAllManualKeys', (option) => {
     })
     return ret
 })
+    
+function searchBussiness() {
+//    if(!mockData.value) {
+        mockData.value = []
+        for(let i = 123; i < 135; i++) {
+            mockData.value.push({
+                businessCode: 10000 + i,
+                id: i,
+                name: '业务分类' + i,
+                source: 2
+            })
+        }
+//    }
+} 
+    
+fetch.mock('/v1/search/searchBusiness', (key) => {
+    searchBussiness()
+    
+    var data = mockData.value
+    var ret = {
+        result: true,
+        value: []
+    }
+    
+    for(let j = 0; j < data.length; j++) {
+        if(data[j])
+            ret.value.push(data[j])
+    }
+    
+    return ret
+})
+
+fetch.mock('/v1/search/manualKey/refresh', (option) => {
+    var data = mockData.value
+    var ret = {
+        result: true,
+        value: true
+    }
+    return ret
+})
+
+fetch.mock('/v1/search/manualKey/update', (option) => {
+    var data = mockData.value
+    var ret = {
+        result: true,
+        value: true
+    }
+    return ret
+})
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
